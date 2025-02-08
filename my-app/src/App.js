@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
@@ -14,7 +14,6 @@ function App() {
     else{
       let nums= addNumber(number)
       setValue( nums.value.toString())
-      console.log("---",nums.negetiveNumber)
       setNegetiveNumber(nums.negetiveNumber)
     }
       }
