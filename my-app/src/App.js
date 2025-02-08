@@ -55,9 +55,9 @@ function App() {
       }
   return (
     <div className="App">
-     <header>Calculator</header>
+     <h1>Calculator</h1>
       <textarea type="text" onChange={(e) => setNumber(e.target.value)} value={number} placeholder="Enter value" />
-      <button onClick={()=>add()}>Submit</button>
+      <div><button onClick={()=>add()}>Submit</button></div>
       <p>{`Result: ${value}`}</p>
       <p>{negetiveNumber!==''?`Negetive number not allowed: ${negetiveNumber}`:''}</p>
     </div>
