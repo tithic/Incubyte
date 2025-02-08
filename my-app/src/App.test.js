@@ -55,3 +55,24 @@ test('Numbers bigger than 1000 should be ignored', () => {
     expect(resultElement.textContent).toContain(`Result: ${testCase.expected}`);
   });
 });
+
+test('Negative numbers not allowed', () => {
+  const { getByPlaceholderText, getByText } = render(<App />);
+  const input = getByPlaceholderText('Enter value');
+  const submitButton = getByText('Submit');
+  const resultElement = getByText('Result:');
+
+  // Test with negative numbers
+  const testCases = [
+    { input: '-1', expected: 'Error: Negative numbers not allowed' },
+    { input: '-2,3', expected: 'Error: Negative numbers not allowed' },
+    { input: '2,-3', expected: 'Error: Negative numbers not allowed' },
+    { input: '-1,-2', expected: 'Error: Negative numbers not allowed' },
+  ];
+
+  testCases.forEach((testCase) => {
+    fireEvent.change(input, { target: { value: testCase.input } });
+    fireEvent.click(submitButton);
+    expect(resultElement.textContent).toContain(testCase.expected);
+  });
+});
