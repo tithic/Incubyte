@@ -1,26 +1,28 @@
-import logo from './logo.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
   const [number, setNumber] = useState('');
   const [value,setValue] = useState('');
  const[negetiveNumber,setNegetiveNumber]= useState('')
+
  
-  function add() {
-    /** If user clicks on submit or "",returns 0 */
+  const add=()=> {
+        /** If user clicks on submit or "",returns 0 */
     if(number==="")
       setValue('0')
     else{
       let nums= addNumber(number)
-     
-      setValue( nums.toString())
+      setValue( nums.value.toString())
+      setNegetiveNumber(nums.negetiveNumber)
     }
       }
 
-      function addNumber(num) {
+      const addNumber=(num) =>{
+       let negetive=[]
         let ret=0
         let retNum='0'
+        let returnVal={}
        for(let n=0;n<num.length ; n++){
         if(num[n].match(/[0-9]/) ){ 
           /** Extracting the number */
@@ -31,8 +33,11 @@ function App() {
 
         } else 
         if(num[n+1]!==undefined && (num[n]==='-' && num[n+1].match(/[0-9]/)) ){
+         let p=''
           //Negetive number not allowed
-          setNegetiveNumber(negetiveNumber+','+num[n]+num[n+1])
+            p= `${num[n]}${num[n+1]}`
+         
+          negetive.push(p)
          num= num.replace(num[n]+num[n+1],'')
         }
           else{
@@ -44,12 +49,14 @@ function App() {
        if(retNum!==''){
         ret=ret+parseInt(retNum)
       }
-       return ret
+      returnVal.value=ret
+      returnVal.negetiveNumber=negetive
+       return returnVal
       }
   return (
     <div className="App">
      <header>Calculator</header>
-      <textarea type="text" onChange={(e) => setNumber(e.target.value)} placeholder="Enter value" />
+      <textarea type="text" onChange={(e) => setNumber(e.target.value)} value={number} placeholder="Enter value" />
       <button onClick={()=>add()}>Submit</button>
       <p>{`Result: ${value}`}</p>
       <p>{negetiveNumber!==''?`Negetive number not allowed: ${negetiveNumber}`:''}</p>

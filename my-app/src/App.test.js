@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor,screen } from '@testing-library/react';
 import App from './App'; 
 
 
@@ -60,19 +60,19 @@ test('Negative numbers not allowed', () => {
   const { getByPlaceholderText, getByText } = render(<App />);
   const input = getByPlaceholderText('Enter value');
   const submitButton = getByText('Submit');
-  const resultElement = getByText('Result:');
 
   // Test with negative numbers
   const testCases = [
-    { input: '-1', expected: 'Error: Negative numbers not allowed' },
-    { input: '-2,3', expected: 'Error: Negative numbers not allowed' },
-    { input: '2,-3', expected: 'Error: Negative numbers not allowed' },
-    { input: '-1,-2', expected: 'Error: Negative numbers not allowed' },
+    { input: '-1', expected: 'Negetive number not allowed: -1' },
+    { input: '-2,3', expected:'Negetive number not allowed: -2' },
+    { input: '2,-3', expected:'Negetive number not allowed: -3' },
+    { input: '-1,-2', expected:'Negetive number not allowed: -1,-2' },
   ];
 
   testCases.forEach((testCase) => {
     fireEvent.change(input, { target: { value: testCase.input } });
     fireEvent.click(submitButton);
-    expect(resultElement.textContent).toContain(testCase.expected);
+    const errorText = getByText(testCase.expected);
+    expect(errorText).toBeInTheDocument();
   });
 });
