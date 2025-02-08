@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   const [number, setNumber] = useState('');
   const [value,setValue] = useState('');
- const[negetiveNumber,setNegetiveNumber]= useState('')
+ const[negetiveNumber,setNegetiveNumber]= useState([])
 
  
   const add=()=> {
@@ -14,6 +14,7 @@ function App() {
     else{
       let nums= addNumber(number)
       setValue( nums.value.toString())
+      console.log("---",nums.negetiveNumber)
       setNegetiveNumber(nums.negetiveNumber)
     }
       }
@@ -59,7 +60,7 @@ function App() {
       <textarea type="text" onChange={(e) => setNumber(e.target.value)} value={number} placeholder="Enter value" />
       <div><button onClick={()=>add()}>Submit</button></div>
       <p>{`Result: ${value}`}</p>
-      <p>{negetiveNumber!==''?`Negetive number not allowed: ${negetiveNumber}`:''}</p>
+      <p>{negetiveNumber.length>0?`Negetive number not allowed: ${negetiveNumber}`:''}</p>
     </div>
   );
 }
